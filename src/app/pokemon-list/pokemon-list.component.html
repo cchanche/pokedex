@@ -1,0 +1,31 @@
+<form [formGroup]="angForm" (ngSubmit)="onFormSubmit()">
+  <input formControlName="name" type="text" placeholder="Pokemon name" />
+  <input formControlName="id" type="number" placeholder="Pokemon id" />
+  <select id="type" formControlName="type">
+    <option *ngFor="let t of types" [ngValue]="t">{{ t }}</option>
+  </select>
+</form>
+
+<div class="wrapper">
+  <div *ngFor="let pokemon of pokemons">
+    <div class="pokemon-container">
+      <div class="image-container">
+        <img [src]="pokemon.img" />
+      </div>
+      <div class="info-container">
+        <div class="info-header">
+          <h3>{{ pokemon.name }}</h3>
+          N°{{ pokemon.id }}
+        </div>
+        <div class="info-body">
+          <p>Types :</p>
+          <ul>
+            <div *ngFor="let type of pokemon.type">
+              <li>{{ type }}</li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
