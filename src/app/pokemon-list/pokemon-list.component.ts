@@ -1,5 +1,6 @@
+declare var require: any;
+
 import { Component, OnInit } from '@angular/core';
-import PokemonData from '../../assets/seed.json';
 import Pokemon from '../pokemon';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
@@ -9,7 +10,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit {
-  pokemons: Pokemon[] = PokemonData; // pokemons to display attribute
+  PokemonData = require('../../assets/seed.json');
+  pokemons: Pokemon[] = this.PokemonData; // pokemons to display attribute
   types = []; // types of pokemons attribute
   angForm = new FormGroup({
     // form group for filter inputs
@@ -23,7 +25,7 @@ export class PokemonListComponent implements OnInit {
   // Handles values changes in the formGroup
   onChange(value: any) {
     console.log(value);
-    let newpokemons = PokemonData;
+    let newpokemons = this.PokemonData;
 
     if (value.name && value.name !== '') {
       newpokemons = newpokemons.filter((p) => p.name.includes(value.name));
@@ -44,7 +46,7 @@ export class PokemonListComponent implements OnInit {
     // subscribe formGroup value changes to our onChange function
     this.angForm.valueChanges.subscribe((val) => this.onChange(val));
     // fill up the different pokemon types
-    PokemonData.forEach((p) => {
+    this.PokemonData.forEach((p) => {
       p.type.forEach((pt) => {
         if (!this.types.includes(pt)) {
           this.types.push(pt);
